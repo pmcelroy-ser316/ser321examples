@@ -257,7 +257,7 @@ class WebServer {
                     System.out.println(json);
                     Object obj = new JSONParser().parse(json);
                     JSONObject jo = (JSONObject) obj;
-                    System.out.print('Here: ' + jo);
+                    System.out.print("Here: " + jo);
 
                     builder.append("Check the todos mentioned in the Java source file");
                     // TODO: Parse the JSON returned by your fetch and create an appropriate
