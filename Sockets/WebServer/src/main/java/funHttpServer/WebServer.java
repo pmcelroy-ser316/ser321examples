@@ -265,10 +265,10 @@ class WebServer {
                             filterElement.put("full_name", full_name);
                             filterElement.put("id", id);
                             filterElement.put("owner", owner);
-
+                            System.out.println("%%%%%%%%%%%%%%" + filterElement);
                             responseArray.add(filterElement);
                         }
-
+                        System.out.println("\n\nCheck the Array: " + responseArray);
                         builder.append("HTTP/1.1 200 OK\n");
                         builder.append("Content-Type: text/html; charset=utf-8\n");
                         builder.append("\n");
