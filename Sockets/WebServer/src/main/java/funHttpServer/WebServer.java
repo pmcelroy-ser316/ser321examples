@@ -17,6 +17,7 @@ write a response back
 package funHttpServer;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.*;
@@ -253,8 +254,19 @@ class WebServer {
                     try {
                         Object obj = new JSONParser().parse(json);
                         JSONArray jo = (JSONArray) obj;
+
                         for (Object jObj : jo) {
-                            responseArray.add(jObj);
+                            JSONObject element = (JSONObject) jObj;
+                            String full_name = (String) element.get("full_name");
+                            String id = (String) element.get("id");
+                            String owner = (String) element.get("owner");
+
+                            JSONObject filterElement = new JSONObject();
+                            filterElement.put("full_name", full_name);
+                            filterElement.put("id", id);
+                            filterElement.put("owner", owner);
+
+                            responseArray.add(filterElement);
                         }
 
                         builder.append("HTTP/1.1 200 OK\n");
