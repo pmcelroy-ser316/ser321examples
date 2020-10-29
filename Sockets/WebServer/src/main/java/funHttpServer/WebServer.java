@@ -16,7 +16,7 @@ write a response back
 
 package funHttpServer;
 
-import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
 import java.io.*;
@@ -249,10 +249,9 @@ class WebServer {
                     Map<String, String> query_pairs = new LinkedHashMap<String, String>();
                     query_pairs = splitQuery(request.replace("github?", ""));
                     String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
-                    System.out.println(json);
                     try {
                         Object obj = new JSONParser().parse(json);
-                        JSONObject jo = (JSONObject) obj;
+                        JSONArray jo = (JSONArray) obj;
                         System.out.print("Here: " + jo);
                     } catch (org.json.simple.parser.ParseException e) {
                         builder.append("HTTP/1.1 8001 JSON Parsing Error\n");
