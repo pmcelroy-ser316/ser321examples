@@ -204,8 +204,8 @@ class WebServer {
 
                     // extract path parameters
                     query_pairs = splitQuery(request.replace("multiply?", ""));
-                    Integer num1;
-                    Integer num2;
+                    Integer num1 = 0;
+                    Integer num2 = 0;
                     try {
                         // extract required fields from parameters
                         num1 = Integer.parseInt(query_pairs.get("num1"));
