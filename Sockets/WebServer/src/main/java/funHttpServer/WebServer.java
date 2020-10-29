@@ -17,7 +17,6 @@ write a response back
 package funHttpServer;
 
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.*;
@@ -254,25 +253,14 @@ class WebServer {
                     try {
                         Object obj = new JSONParser().parse(json);
                         JSONArray jo = (JSONArray) obj;
-
                         for (Object jObj : jo) {
-                            JSONObject element = (JSONObject) jObj;
-                            String full_name = (String) element.get("full_name");
-                            String id = (String) element.get("id");
-                            String owner = (String) element.get("owner");
-
-                            JSONObject filterElement = new JSONObject();
-                            filterElement.put("full_name", full_name);
-                            filterElement.put("id", id);
-                            filterElement.put("owner", owner);
-                            System.out.println("%%%%%%%%%%%%%%" + filterElement);
-                            responseArray.add(filterElement);
+                            responseArray.add(jObj);
                         }
-                        System.out.println("\n\nCheck the Array: " + responseArray);
+
                         builder.append("HTTP/1.1 200 OK\n");
                         builder.append("Content-Type: text/html; charset=utf-8\n");
                         builder.append("\n");
-                        builder.append("Result is: ").append(responseArray);
+                        builder.append("Result is: " + responseArray);
                     } catch (org.json.simple.parser.ParseException e) {
                         builder.append("HTTP/1.1 8001 JSON Parsing Error\n");
                         builder.append("Content-Type: text/html; charset=utf-8\n");
