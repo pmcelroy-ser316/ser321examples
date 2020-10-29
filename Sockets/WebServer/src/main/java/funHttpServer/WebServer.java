@@ -25,6 +25,9 @@ import java.util.Random;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.nio.charset.Charset;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.*;
 
 class WebServer {
     public static void main(String args[]) {
@@ -252,6 +255,9 @@ class WebServer {
                     query_pairs = splitQuery(request.replace("github?", ""));
                     String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
                     System.out.println(json);
+                    Object obj = new JSONParser().parse(json);
+                    JSONObject jo = (JSONObject) obj;
+                    System.out.print('Here: ' + jo);
 
                     builder.append("Check the todos mentioned in the Java source file");
                     // TODO: Parse the JSON returned by your fetch and create an appropriate
