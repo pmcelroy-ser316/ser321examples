@@ -249,10 +249,18 @@ class WebServer {
                     Map<String, String> query_pairs = new LinkedHashMap<String, String>();
                     query_pairs = splitQuery(request.replace("github?", ""));
                     String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
+                    JSONArray responseArray = new JSONArray();
                     try {
                         Object obj = new JSONParser().parse(json);
                         JSONArray jo = (JSONArray) obj;
-                        System.out.print("Here: " + jo);
+                        for (Object jObj : jo) {
+                            responseArray.add(jObj);
+                        }
+
+                        builder.append("HTTP/1.1 200 OK\n");
+                        builder.append("Content-Type: text/html; charset=utf-8\n");
+                        builder.append("\n");
+                        builder.append("Result is: ").append(responseArray);
                     } catch (org.json.simple.parser.ParseException e) {
                         builder.append("HTTP/1.1 8001 JSON Parsing Error\n");
                         builder.append("Content-Type: text/html; charset=utf-8\n");
