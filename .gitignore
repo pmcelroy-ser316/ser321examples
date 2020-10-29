@@ -17,6 +17,9 @@ local.properties
 .classpath
 .project
 .idea
+gradle
+gradlew
+gradlew.bat
 
 .DS_Store
 

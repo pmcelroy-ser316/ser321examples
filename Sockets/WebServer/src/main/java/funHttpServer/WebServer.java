@@ -16,18 +16,13 @@ write a response back
 
 package funHttpServer;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Map;
-import java.util.LinkedHashMap;
 import java.nio.charset.Charset;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.*;
+import java.util.*;
 
 class WebServer {
     public static void main(String args[]) {
@@ -255,9 +250,14 @@ class WebServer {
                     query_pairs = splitQuery(request.replace("github?", ""));
                     String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
                     System.out.println(json);
-                    Object obj = new JSONParser().parse(json);
-                    JSONObject jo = (JSONObject) obj;
-                    System.out.print("Here: " + jo);
+                    try {
+                        Object obj = new JSONParser().parse(json);
+                        JSONObject jo = (JSONObject) obj;
+                        System.out.print("Here: " + jo);
+                    } catch (org.json.simple.parser.ParseException e) {
+                        builder.append("HTTP/1.1 8001 JSON Parsing Error\n");
+                        builder.append("Content-Type: text/html; charset=utf-8\n");
+                    }
 
                     builder.append("Check the todos mentioned in the Java source file");
                     // TODO: Parse the JSON returned by your fetch and create an appropriate
